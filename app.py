@@ -73,10 +73,10 @@ import sqlite3
 
 app = Flask(__name__)
 
-# www.google.com/
 @app.route("/") # decorators
-def hello_world():
-    return "<h1>Hello, World!</h1>"
+def main():
+   return render_template('base.html')
+
 
 @app.route("/ask/", methods=['POST', 'GET'])
 def ask():
@@ -90,11 +90,6 @@ def ask():
       insert_message(request)
       return render_template('submit.html', message=message, handle=handle)
 
-@app.route("/profile/<name>")
-def hello_name(name):
-    return render_template('profile.html', name=name)
-
-
 
 def get_message_db():
    # check if there is database called message_db in g attribute in app
@@ -102,14 +97,12 @@ def get_message_db():
    Creates the database of messages
    Returns the database connection
    """
+
    try:
-      cmd = 'CREATE TABLE IF NOT EXISTS messages(id INT, handle TEXT, message TEXT)' # replace this with your SQL query
-      cursor = g.message_db.cursor()
-      cursor.execute(cmd)
       return g.message_db
    except:
       g.message_db = sqlite3.connect("messages_db.sqlite")
-      cmd = 'CREATE TABLE IF NOT EXISTS messages(id INT, handle TEXT, message TEXT)' # replace this with your SQL query
+      cmd = 'CREATE TABLE IF NOT EXISTS messages(id INT, handle TEXT, message TEXT)'
       cursor = g.message_db.cursor()
       cursor.execute(cmd)
       return g.message_db
@@ -119,21 +112,21 @@ def insert_message(request):
    """
    Inserts message into the database of messages
    """
-   # ensure template creates these fields
-   # request.form["message"]
-   db = sqlite3.connect("get_message_db")
+
+   # connect to database
+   db = get_message_db()
+
    # compute id
    cursor = db.cursor()
    cmd = "SELECT count(*) FROM messages"
    id_num = 1 # + cursor.execute(cmd)
    cmd = f"""
-      INSERT INTO messages (id, handle, message)
+      INSERT INTO messages
       VALUES ({id_num}, '{request.form['handle']}', '{request.form['message']}')
    """
-   # ensure id number of each message is unique
-   # id = 1 + current number of rows
    
    cursor.execute(cmd)
    db.commit()
 
+   # close connection
    db.close()
