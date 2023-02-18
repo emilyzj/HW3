@@ -73,12 +73,12 @@ import sqlite3
 
 app = Flask(__name__)
 
-@app.route("/") # decorators
-def main():
-   return render_template('base.html')
+# @app.route("/") # decorators
+# def main():
+#    return render_template('submit.html')
 
 
-@app.route("/ask/", methods=['POST', 'GET'])
+@app.route("/", methods=['POST', 'GET'])
 def ask():
    if request.method == 'GET':
       # if the user just visits the url

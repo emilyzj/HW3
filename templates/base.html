@@ -1,16 +1,13 @@
-
 <!doctype html>
 <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
-<title>{% block title %}{% endblock %} - PIC16B Website</title>
+<h1>A simple message bank</h1>
+
+<title>{% block title %}{% endblock %}</title>
 <nav>
-  <h1>PIC16B Example Webapp!</h1>
+  <!-- <h1>PIC16B Example Webapp!</h1> -->
   <!-- <b>Navigation:</b> -->
   <ul>
-    <!-- <li><a href="{{ url_for('main') }}">Main page</a></li> -->
-    <!-- <li><a href="{{ url_for('hello')}}">Hello</a></li> -->
     <li><a href="{{ url_for('ask') }}">Submit a message</a></li>
-    <!-- <li><a href="{{ url_for('submit') }}">Submit a message</a></li> -->
-    <!-- <li><a href="{{ url_for('view') }}">View messages</a></li> -->
   </ul>
 </nav>
 <section class="content">

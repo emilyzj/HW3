@@ -1,5 +1,7 @@
+{% extends 'base.html' %}
+
 {% block header %}
-  <h1>{% block title %}A simple message bank{% endblock %}</h1>
+  <h1>{% block title %}Submit{% endblock %}</h1>
 {% endblock %}
 
 
@@ -17,8 +19,8 @@
   </form>
   {% if message %}
   <br>
-  <b>hi {{handle}}</b>
-  <br>
+  <!-- <b>hi {{handle}}</b>
+  <br> -->
   <b>{{message}}<b>
 
 
