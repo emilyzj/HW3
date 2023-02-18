@@ -130,3 +130,26 @@ def insert_message(request):
 
    # close connection
    db.close()
+
+def random_submissions(n):
+   """
+   Returns a collection of n random messages from the database
+   """
+
+   db = get_message_db()
+   cursor = db.cursor()
+   cmd = f"""
+      SELECT *
+      FROM messages
+      ORDER BY RANDOM() LIMIT {n}
+   """
+   cursor.execute(cmd)
+   m = cursor.fetchall()
+   db.close()
+
+   return m
+
+@app.route('/view/')
+def view():
+   messages = random_submissions(2)
+   return render_template('view.html', messages=messages)
